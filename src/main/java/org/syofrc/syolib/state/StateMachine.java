@@ -1,4 +1,4 @@
-package org.syofrc.syolib;
+package org.syofrc.syolib.state;
 
 /**
  * Finite State Machine (FSM) that operates on a particular type of object

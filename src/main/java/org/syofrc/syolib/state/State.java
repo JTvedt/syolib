@@ -1,4 +1,4 @@
-package org.syofrc.syolib;
+package org.syofrc.syolib.state;
 
 /**
  * Class that captures a particular state for a particular object
