@@ -1,5 +1,8 @@
 package org.syofrc.syolib.input;
 
+/**
+ * Pattern which denotes a particular controller and input for a controller
+ */
 public class ControllerPattern {
     public final InputType inputType;
     public final Controller.Type controllerType;

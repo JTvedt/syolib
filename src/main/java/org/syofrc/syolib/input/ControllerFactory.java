@@ -2,8 +2,20 @@ package org.syofrc.syolib.input;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
+/**
+ * <p>Factory for creating {@link Controller} objects from Command variants of WPILib HID Controllers</p>
+ * <p>Currently Supports:</p>
+ * <ul>
+ *   <li>{@link CommandXboxController}
+ * </ul>
+ */
 public class ControllerFactory {
-    public Controller XBoxController(CommandXboxController xboxController) {
+    /**
+     * Creates {@link Controller} object from an XboxController
+     * @param xboxController Command-Based XBox Controller to map bindings
+     * @return Bound controller
+     */
+    public Controller makeController(CommandXboxController xboxController) {
         return new Controller.Builder(Controller.Type.GAMEPAD)
             .bindTrigger("a", xboxController.a())
             .bindTrigger("b", xboxController.b())

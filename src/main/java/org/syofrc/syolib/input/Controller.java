@@ -6,6 +6,9 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+/**
+ * Controller Object with generic bindings from string keys to triggers and axes
+ */
 public class Controller {
     private final Type type;
     private final Map<String, Trigger> triggerMap = new HashMap<>();
@@ -55,6 +58,11 @@ public class Controller {
         return axisMap.get(key);
     }
 
+    /**
+     * Determines if a {@link ControllerPattern} is valid for this controller
+     * @param pattern Pattern to be matched
+     * @return true if the pattern is valid, false if not
+     */
     public boolean match(ControllerPattern pattern) {
         if (pattern.controllerType != type)
             return false;

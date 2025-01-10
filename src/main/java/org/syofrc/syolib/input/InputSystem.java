@@ -9,11 +9,17 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * System for handling input to the robot. Serves as a table for all the bindings to generic controllers
+ */
 public class InputSystem {
     private final Map<Integer, Controller> controllerMap = new HashMap<>();
 
     private final Map<String, List<ControllerPattern>> inputMap = new HashMap<>();
 
+    /**
+     * Builder for constructing an input system from a given set of inputs
+     */
     public static class Builder {
         private final InputSystem inputSystem = new InputSystem();
 
