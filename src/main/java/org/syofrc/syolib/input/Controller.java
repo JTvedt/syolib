@@ -42,4 +42,26 @@ public class Controller {
         JOYSTICK,
         KEYBOARD,
     }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Trigger getTrigger(String key) {
+        return triggerMap.get(key);
+    }
+
+    public Supplier<Double> getAxis(String key) {
+        return axisMap.get(key);
+    }
+
+    public boolean match(ControllerPattern pattern) {
+        if (pattern.controllerType != type)
+            return false;
+        
+        return switch (pattern.inputType) {
+            case TRIGGER -> triggerMap.containsKey(pattern.key);
+            case AXIS -> axisMap.containsKey(pattern.key);
+        };
+    }
 }
