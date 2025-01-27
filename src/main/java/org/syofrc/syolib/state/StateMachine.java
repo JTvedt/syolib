@@ -1,33 +1,36 @@
 package org.syofrc.syolib.state;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 /**
  * Finite State Machine (FSM) that operates on a particular type of object
- * @param <T> The type of object the FSM is compatible with
  */
-public class StateMachine<T> {
-    private State<T> wantedState;
-    private State<T> currentState;
+public class StateMachine extends SubsystemBase {
+    private final Subsystem subsystem;
+    private State currentState;
+    private State desiredState;
 
-    /**
-     * Sets the desired state for the state machine to accept transition to
-     * @param state Desired state for the FSM
-     */
-    public void setWanted(State<T> state) { wantedState = state; }
-    
-    /**
-     * Process the current state using the provided object
-     * @param object Object for the FSM to work on
-     */
-    public void accept(T object) {
-        if (currentState != wantedState) {
-            State<T> previousState = currentState;
-            currentState = currentState.consume(object, wantedState);
+    public StateMachine(Subsystem subsystem) {
+        this.subsystem = subsystem;
+    }
 
-            if (previousState != currentState) {
-                previousState.exit(object);
-                currentState.enter(object);
+    @Override
+    public void periodic() {
+        if (currentState != desiredState) {
+            Command transition = currentState.transitionTo(desiredState);
+            if (transition != null) {
+                currentState = desiredState;
+                CommandScheduler.getInstance().schedule(Commands.sequence(transition, desiredState.getCommand()));
+                subsystem.setDefaultCommand(currentState.getCommand());
             }
         }
-        currentState.accept(object);
+    }
+
+    public void setDesiredState(State desiredState) {
+        this.desiredState = desiredState;
     }
 }
