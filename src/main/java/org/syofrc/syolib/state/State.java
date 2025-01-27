@@ -1,7 +1,5 @@
 package org.syofrc.syolib.state;
 
-import java.util.Optional;
-
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
