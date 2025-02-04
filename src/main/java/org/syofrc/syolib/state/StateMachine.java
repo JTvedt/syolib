@@ -25,7 +25,9 @@ public class StateMachine extends SubsystemBase {
             if (transition != null) {
                 currentState = desiredState;
                 CommandScheduler.getInstance().schedule(Commands.sequence(transition, desiredState.getCommand()));
-                subsystem.setDefaultCommand(currentState.getCommand());
+                if (currentState.getCommand() != null) {
+                    subsystem.setDefaultCommand(currentState.getCommand());
+                }
             }
         }
     }
